@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board.demo.mapper.MemberMapper">
+
+    <insert id="join" useGeneratedKeys="true" keyProperty="id">
+        insert into mall_member (memberEmail, memberPw, memberNickname, memberAddr1, memberAddr2, memberAddr3, adminCk, regDate, money, point)
+        values (#{memberEmail}, #{memberPw}, #{memberNickname}, #{memberAddr1}, #{memberAddr2}, #{memberAddr3}, 0, sysdate(), 100000, 30000)
+    </insert>
+
+    <select id="MemberEmailCheck" resultType="int">
+        select count(*)
+        from mall_member
+        where memberEmail = #{memberEmail}
+    </select>
+</mapper>
