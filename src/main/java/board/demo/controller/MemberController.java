@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -45,12 +48,34 @@ public class MemberController {
 
     // 로그인
     @PostMapping("/login")
-    public String login(@Valid MemberDTO.LoginRequest loginRequest, BindingResult bindingResult) {
+    public String login(@Valid MemberDTO.LoginRequest loginRequest, BindingResult bindingResult,
+                        HttpServletRequest request, @RequestParam(defaultValue = "/") String redirectURL) {
         if(bindingResult.hasErrors()) {
             return "login";
         }
 
-//        memberService.login(loginRequest);
+        MemberDTO.LoginResponse loginResponse = memberService.memberLogin(loginRequest);
+
+        // 로그인 실패 시
+        if (loginResponse == null) {
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+            return "login";
+        }
+
+        // 로그인 성공 시
+        HttpSession session = request.getSession();
+        session.setAttribute("member", loginResponse);
+
+        return "redirect:" + redirectURL;
+    }
+
+    // 로그아웃
+    @PostMapping("/logout")
+    public String logoutV3(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
         return "redirect:/";
     }
 
@@ -58,7 +83,7 @@ public class MemberController {
     @ResponseBody
     @PostMapping("/memberEmailChk")
     public String memberEmailChk(String memberEmail) {
-        return memberService.MemberEmailCheck(memberEmail);
+        return memberService.memberEmailCheck(memberEmail);
     }
 
 }

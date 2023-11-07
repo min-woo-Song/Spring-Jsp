@@ -8,5 +8,9 @@ public interface MemberMapper {
 
     void join(MemberDTO.MemberRequest memberRequest);
 
-    int MemberEmailCheck(String memberEmail);
+    int memberEmailCheck(String memberEmail);
+
+    MemberDTO.LoginResponse memberLogin(MemberDTO.LoginRequest loginRequest);
+
+    MemberDTO.MemberRequest findByEmail(String memberEmail);
 }

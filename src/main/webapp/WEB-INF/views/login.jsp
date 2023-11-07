@@ -7,55 +7,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome Mall</title>
-    <style>
-         html,
-         body {
-           height: 100%;
-         }
-
-         .form-signin {
-           width: 100%;
-           max-width: 330px;
-           padding: 15px;
-           margin: auto;
-         }
-
-         .form-signin .checkbox {
-           font-weight: 400;
-         }
-
-         .form-signin .form-floating:focus-within {
-           z-index: 2;
-         }
-
-         .form-signin input[type="email"] {
-           margin-bottom: -1px;
-           border-bottom-right-radius: 0;
-           border-bottom-left-radius: 0;
-         }
-
-         .form-signin input[type="password"] {
-           margin-bottom: 10px;
-           border-top-left-radius: 0;
-           border-top-right-radius: 0;
-         }
-     </style>
+    <link rel="stylesheet" href="../css/login.css" />
 </head>
 <body>
     <body class="text-center">
 
     <main class="form-signin">
-      <form:form modelAttribute="loginRequest" method="post">
+      <form:form modelAttribute="loginRequest" action="login" method="post">
         <h1 class="h3 mb-3 fw-normal">로그인</h1>
+
+        <form:errors />
 
         <div class="form-floating">
             <form:input path="memberEmail" class="form-control" />
             <label for="floatingInput">Email</label>
+            <form:errors path="memberEmail" />
         </div>
 
         <div class="form-floating">
             <form:input path="memberPw" class="form-control" />
             <label for="floatingPassword">password</label>
+            <form:errors path="memberPw" />
         </div>
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
