@@ -19,6 +19,7 @@ public class MemberDTO {
         private Long id;
 
         @Email(message = "올바른 이메일을 입력해주세요")
+        @NotBlank
         private String memberEmail;
 
         @NotBlank(message = "비밀번호를 입력해주세요")
@@ -52,9 +53,20 @@ public class MemberDTO {
     @Builder
     public static class LoginRequest {
         @Email(message = "올바른 이메일을 입력해주세요")
+        @NotBlank
         private String memberEmail;
         
         @NotBlank(message = "비밀번호를 입력해주세요")
         private String memberPw;
+    }
+
+    @Getter
+    @Setter
+    public static class LoginResponse {
+        private String memberEmail;
+        private String memberNickname;
+        private Integer adminCk;
+        private Integer money;
+        private Integer point;
     }
 }

@@ -7,8 +7,20 @@
         values (#{memberEmail}, #{memberPw}, #{memberNickname}, #{memberAddr1}, #{memberAddr2}, #{memberAddr3}, 0, sysdate(), 100000, 30000)
     </insert>
 
-    <select id="MemberEmailCheck" resultType="int">
+    <select id="memberEmailCheck" resultType="int">
         select count(*)
+        from mall_member
+        where memberEmail = #{memberEmail}
+    </select>
+
+    <select id="memberLogin" resultType="board.demo.dto.MemberDTO$LoginResponse">
+        select memberEmail, memberNickname, adminCk, money, point
+        from mall_member
+        where memberEmail = #{memberEmail}
+    </select>
+
+    <select id="findByEmail" resultType="board.demo.dto.MemberDTO$MemberRequest">
+        select *
         from mall_member
         where memberEmail = #{memberEmail}
     </select>
