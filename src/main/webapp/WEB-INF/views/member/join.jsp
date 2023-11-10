@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ include file="include/header.jsp"%>
+<%@ include file="../include/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +15,7 @@
 
      <main class="form-signin">
 
-        <form:form modelAttribute="memberRequest" action="join" method="post">
+        <form:form modelAttribute="memberRequest" method="post">
           <h1 class="h3 mb-3 fw-normal">회원가입</h1>
 
           <span class="id_input_check_success">사용 가능한 이메일입니다.</span>
@@ -64,7 +64,7 @@
           <button class="w-100 btn btn-lg btn-primary" type="submit">회원 가입</button>
         </form:form>
       </main>
-    <%@ include file="include/footer.jsp"%>
+    <%@ include file="../include/footer.jsp"%>
 
     <script>
          // 이메일 중복 체크

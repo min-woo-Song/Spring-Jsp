@@ -10,6 +10,6 @@ public class ProductController {
 
     @GetMapping("/")
     public String product() {
-        return "index";
+        return "product/index";
     }
 }
