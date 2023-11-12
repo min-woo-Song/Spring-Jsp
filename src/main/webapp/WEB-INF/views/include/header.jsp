@@ -21,6 +21,9 @@
             function join(){
                 location.href = "/member/join";
             }
+            function admin(){
+                location.href = "/admin";
+            }
         </script>
     </head>
 
@@ -47,8 +50,14 @@
                     </div>
                 </c:if>
 
+
                 <c:if test="${sessionScope.member != null}">
                     <div class="text-end">
+                      <c:if test="${sessionScope.member.adminCk == 1}">
+                          <div class="text-end">
+                              <input type="button" value="관리자" onclick=admin(); />
+                          </div>
+                      </c:if>
                       <span>이메일 : ${sessionScope.member.memberEmail} | </span>
                       <span>닉네임 : ${sessionScope.member.memberNickname} | </span>
                       <span>지갑 : ${sessionScope.member.money} | </span>

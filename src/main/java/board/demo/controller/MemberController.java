@@ -25,7 +25,7 @@ public class MemberController {
     // 회원가입 폼
     @GetMapping("/join")
     public String joinForm(MemberDTO.MemberRequest memberRequest) {
-        return "join";
+        return "member/join";
     }
 
     // 회원가입
@@ -33,7 +33,7 @@ public class MemberController {
     public String join(@Valid MemberDTO.MemberRequest memberRequest, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             log.info("bindingResult 에러 보유");
-            return "join";
+            return "member/join";
         }
 
         memberService.join(memberRequest);
@@ -43,7 +43,7 @@ public class MemberController {
     // 로그인 폼
     @GetMapping("/login")
     public String loginForm(MemberDTO.LoginRequest loginRequest) {
-        return "login";
+        return "member/login";
     }
 
     // 로그인
@@ -51,7 +51,7 @@ public class MemberController {
     public String login(@Valid MemberDTO.LoginRequest loginRequest, BindingResult bindingResult,
                         HttpServletRequest request, @RequestParam(defaultValue = "/") String redirectURL) {
         if(bindingResult.hasErrors()) {
-            return "login";
+            return "member/login";
         }
 
         MemberDTO.LoginResponse loginResponse = memberService.memberLogin(loginRequest);
@@ -59,12 +59,14 @@ public class MemberController {
         // 로그인 실패 시
         if (loginResponse == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            return "login";
+            return "member/login";
         }
 
         // 로그인 성공 시
         HttpSession session = request.getSession();
         session.setAttribute("member", loginResponse);
+
+        log.info("redirectURL = {}", redirectURL);
 
         return "redirect:" + redirectURL;
     }
